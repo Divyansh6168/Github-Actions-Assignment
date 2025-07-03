@@ -9,7 +9,7 @@ on:
 
 jobs:
     Build:
-        runs-on: ubuntu=latest
+        runs-on: ubuntu-latest
         steps:
             - name: Checkoout Code
               uses: actions/checkout@v3
