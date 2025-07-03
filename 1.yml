@@ -1,0 +1,41 @@
+name: Artifacts Assignment
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  Build:
+    runs-on: ubuntu=latest
+    steps:
+      - name: Checkoout Code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          mkdir -p Artifacts
+          echo "I am a Linux command's output" > Artifacts/assignment_1.txt
+          ls -l Artifacts/
+          cat Artifacts/assignment_1.txt
+
+      - name: Upload the Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          - name: assignment_1
+            path: Artifacts/
+
+    Download:
+      needs: Build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Download Artifacts from Github Actions
+          uses: actions/download-artifact@v4
+          with:
+            name: assignment_1
+            path: downloaded-artifact
+
+        - name: Display Artifact Content
+          run: |
+            ls -l downloaded-artifact
+            cat downloaded-artifact/assignment_1.txt || echo "File is empty or missing"
