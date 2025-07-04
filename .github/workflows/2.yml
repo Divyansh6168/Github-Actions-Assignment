@@ -1,0 +1,24 @@
+name: CI Pipeline to run only for changes in src folder
+
+on:
+    push:
+        branches:
+            - path
+        paths:
+            - 'src/**'
+
+    pull_request:
+        branches:
+            - master
+        paths:
+            - 'src/**'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Run Job
+              run: echo "Changes detected in src/. running job..."
